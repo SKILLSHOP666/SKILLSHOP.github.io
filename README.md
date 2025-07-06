@@ -1,1 +1,1 @@
-# SKILL_SHOP.github.io
+# SKILLSHOP.github.io
