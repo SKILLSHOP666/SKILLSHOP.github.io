@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Donat Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Minecraft&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Minecraft', Arial, sans-serif;
+        }
+        
+        body {
+            background: #1a1a1a url('https://i.imgur.com/7QZ4Q9X.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 3px solid #555;
+        }
+        
+        h1 {
+            color: #FFAA00;
+            text-shadow: 3px 3px 0 #000;
+            font-size: 2.5rem;
+        }
+        
+        .donat-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .category-btn {
+            background: #333;
+            color: #fff;
+            border: 2px solid #555;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: #555;
+            border-color: #FFAA00;
+        }
+        
+        .donat-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .donat-item {
+            background: rgba(0, 0, 0, 0.7);
+            border: 3px solid #555;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .donat-item:hover {
+            border-color: #FFAA00;
+            transform: translateY(-5px);
+        }
+        
+        .donat-name {
+            color: #FFAA00;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0 #000;
+        }
+        
+        .donat-price {
+            color: #55FF55;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .buy-btn {
+            background: #55AA55;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        
+        .buy-btn:hover {
+            background: #55FF55;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: #222;
+            border: 3px solid #FFAA00;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #FF5555;
+        }
+        
+        .payment-methods {
+            margin-top: 20px;
+        }
+        
+        .payment-method {
+            background: #333;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .payment-method:hover {
+            background: #444;
+        }
+        
+        .payment-method img {
+            width: 30px;
+            margin-right: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .donat-items {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MINECRAFT DONAT SHOP</h1>
+            <p>Приобретите привилегии для нашего сервера!</p>
+        </header>
+        
+        <div class="donat-categories">
+            <button class="category-btn active" data-category="all">Все</button>
+            <button class="category-btn" data-category="basic">Базовые</button>
+            <button class="category-btn" data-category="staff">Админские</button>
+            <button class="category-btn" data-category="top">Топовые</button>
+        </div>
+        
+        <div class="donat-items">
+            <!-- Basic -->
+            <div class="donat-item" data-category="basic">
+                <div class="donat-name">Fly</div>
+                <div class="donat-price">37.5к монет</div>
+                <button class="buy-btn" data-item="Fly" data-price="37.5">Купить</button>
+            </div>
+            
+            <div class="donat-item" data-category="basic">
+                <div class="donat-name">Premium</div>
+                <div class="donat-price">67.5к монет</div>
+                <button class="buy-btn" data-item="Premium" data-price="67.5">Купить</button>
+            </div>
+            
+            <div class="donat-item" data-category="basic">
+                <div class="donat-name">Creativ</div>
+                <div class="donat-price">135к монет</div>
+                <button class="buy-btn" data-item="Creativ" data-price="135">Купить</button>
+            </div>
+            
+            <!-- Staff -->
+            <div class="donat-item" data-category="staff">
+                <div class="donat-name">Moderator</div>
+                <div class="donat-price">180к монет</div>
+                <button class="buy-btn" data-item="Moderator" data-price="180">Купить</button>
+            </div>
+            
+            <div class="donat-item" data-category="staff">
+                <div class="donat-name">Admin</div>
+                <div class="donat-price">255к монет</div>
+                <button class="buy-btn" data-item="Admin" data-price="255">Купить</button>
+            </div>
+            
+            <div class="donat-item" data-category="staff">
+                <div class="donat-name">Operator</div>
+                <div class="donat-price">600к монет</div>
+                <button class="buy-btn" data-item="Operator" data-price="600">Купить</button>
+            </div>
+            
+            <!-- Top -->
+            <div class="donat-item" data-category="top">
+                <div class="donat-name">Povelitel</div>
+                <div class="donat-price">825к монет</div>
+                <button class="buy-btn" data-item="Povelitel" data-price="825">Купить</button>
+            </div>
+            
+            <div class="donat-item" data-category="top">
+                <div class="donat-name">Anti Grif</div>
+                <div class="donat-price">1.350кк монет</div>
+                <button class="buy-btn" data-item="Anti grif" data-price="1350">Купить</button>
+            </div>
+            
+            <div class="donat-item" data-category="top">
+                <div class="donat-name">Bog</div>
+                <div class="donat-price">1.950кк монет</div>
+                <button class="buy-btn" data-item="Bog" data-price="1950">Купить</button>
+            </div>
+            
+            <div class="donat-item" data-category="top">
+                <div class="donat-name">Osnovatel</div>
+                <div class="donat-price">3.450кк монет</div>
+                <button class="buy-btn" data-item="Osnovatel" data-price="3450">Купить</button>
+            </div>
+            
+            <div class="donat-item" data-category="top">
+                <div class="donat-name">Sozdatel</div>
+                <div class="donat-price">6.300кк монет</div>
+                <button class="buy-btn" data-item="Sozdatel" data-price="6300">Купить</button>
+            </div>
+            
+            <div class="donat-item" data-category="top">
+                <div class="donat-name">Developer</div>
+                <div class="donat-price">11.250кк монет</div>
+                <button class="buy-btn" data-item="Developer" data-price="11250">Купить</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно оплаты -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title">Оплата: <span id="item-name"></span></h2>
+            <p>Цена: <span id="item-price"></span> монет</p>
+            
+            <div class="payment-methods">
+                <h3>Выберите способ оплаты:</h3>
+                
+                <div class="payment-method" data-method="qiwi">
+                    <img src="https://i.imgur.com/5zw7sPJ.png" alt="QIWI">
+                    <span>QIWI Кошелек</span>
+                </div>
+                
+                <div class="payment-method" data-method="card">
+                    <img src="https://i.imgur.com/VkiDxQx.png" alt="Card">
+                    <span>Банковская карта</span>
+                </div>
+                
+                <div class="payment-method" data-method="crypto">
+                    <img src="https://i.imgur.com/4Q9sJ7x.png" alt="Crypto">
+                    <span>Криптовалюта (USDT, BTC)</span>
+                </div>
+                
+                <div class="payment-method" data-method="yoomoney">
+                    <img src="https://i.imgur.com/7QZ4Q9X.png" alt="YooMoney">
+                    <span>ЮMoney</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>По всем вопросам обращайтесь в Discord: <strong>server.discord.gg</strong></p>
+        <p>© 2023 Minecraft Server. Все права защищены.</p>
+    </footer>
+    
+    <script>
+        // Фильтрация по категориям
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const category = btn.dataset.category;
+                document.querySelectorAll('.donat-item').forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Открытие модального окна
+        document.querySelectorAll('.buy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const modal = document.getElementById('paymentModal');
+                const itemName = btn.dataset.item;
+                const itemPrice = btn.dataset.price;
+                
+                document.getElementById('item-name').textContent = itemName;
+                document.getElementById('item-price').textContent = itemPrice;
+                
+                modal.style.display = 'flex';
+            });
+        });
+        
+        // Закрытие модального окна
+        document.querySelector('.close-modal').addEventListener('click', () => {
+            document.getElementById('paymentModal').style.display = 'none';
+        });
+        
+        // Выбор способа оплаты
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', () => {
+                const methodName = method.dataset.method;
+                alert(`Вы выбрали оплату через ${method.querySelector('span').textContent}. Перенаправляем на платеж...`);
+                // Здесь должна быть логика перенаправления на платежную систему
+            });
+        });
+    </script>
+</body>
+  </html>
